@@ -1,0 +1,32 @@
+PODS:
+  - DynamicBlurView (4.1.0)
+  - IQKeyboardManagerSwift (6.5.6)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+  - RangeSeekSlider (1.8.0)
+  - SideMenu (6.5.0)
+
+DEPENDENCIES:
+  - IQKeyboardManagerSwift
+  - PopupDialog (~> 1.1)
+  - RangeSeekSlider
+  - SideMenu
+
+SPEC REPOS:
+  trunk:
+    - DynamicBlurView
+    - IQKeyboardManagerSwift
+    - PopupDialog
+    - RangeSeekSlider
+    - SideMenu
+
+SPEC CHECKSUMS:
+  DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+  RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
+  SideMenu: f583187d21c5b1dd04c72002be544b555a2627a2
+
+PODFILE CHECKSUM: 411cfe1ca3df3c4b2a42984fb1edea6c0b827196
+
+COCOAPODS: 1.10.0
