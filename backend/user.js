@@ -23,11 +23,6 @@ router.post('/register', async function(req, res) {
         postalCode: req.body.postalCode
     }
 
-    if(!user.email.endsWith('hs-fulda.de')) {
-        res.status(400).json({message: "Only users with 'hs-fulda.de' email are authorized to register for application."});
-        return
-    }
-
     sqlManager.registerUser(user, function(err, result) {
         if (err) {
             res.status(500).json({status:'Failed', message: err.message});
@@ -54,7 +49,6 @@ router.post('/update/status',(req,res)=>{
             }
             else{
                 res.status(200).json({status:'Success', message:result});
-  
             }
         })
     }
