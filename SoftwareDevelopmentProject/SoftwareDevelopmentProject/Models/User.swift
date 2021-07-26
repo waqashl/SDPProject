@@ -8,16 +8,32 @@
 
 import Foundation
 
-class User {
+class User: Decodable {
     
     var id: Int?
     var name: String?
-    var dateOfBirth: Date?
+    var dateOfBirth: String?
     var email: String?
-    var phoneNumber: String?
+    var address: String?
     var userImage: String?
+    var userType: Int?
+    var isActice: Bool?
     
-    init(){
+    public init() {}
+    
+    
+    public func getFormattedData() -> String {
+        let d1 = DateFormatter()
+        let d2 = DateFormatter()
+        
+        d1.dateFormat = "MMM dd, yyyy"
+        d2.dateFormat = "yyyy-MM-dd"
+        
+        let d = self.dateOfBirth!.split(separator: "T")
+        
+        let date = d2.date(from: String(d[0]))
+        
+        return d1.string(from: date!)
     }
     
 }

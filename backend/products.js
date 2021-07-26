@@ -43,18 +43,18 @@ router.get('/', function(req, res) {
                 res.status(200).json({status: 'Success', message: 'No Products Found.', products: []});
                 return
             }
-            let productCategories = {};
+            // let productCategories = {};
 
-            for(let product of result) {
-                if(productCategories[product.category]) {
-                    productCategories[product.category].push(product);
-                }
-                else {
-                    productCategories[product.category] = [product];
-                }
-            }
+            // for(let product of result) {
+            //     if(productCategories[product.category]) {
+            //         productCategories[product.category].push(product);
+            //     }
+            //     else {
+            //         productCategories[product.category] = [product];
+            //     }
+            // }
 
-            res.status(200).json({status: 'Success', products: productCategories});
+            res.status(200).json({status: 'Success', products: result});
         })    
     }
 

@@ -22,8 +22,10 @@ class FilterViewController: UIViewController {
     let categoryPicker = UIPickerView()
     let sortPicker = UIPickerView()
     
-    let categories = ["A","B","C","D","E","F","G","H"]
     let sortItems = ["Highest Price", "Lowest Price","Date Added","Name"]
+    
+    var selectedCategoryID : Int?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,10 +50,10 @@ class FilterViewController: UIViewController {
         toolBar.sizeToFit()
 
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
-//        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-//        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
 
-        toolBar.setItems([doneButton], animated: false)
+        toolBar.setItems([spaceButton,spaceButton,doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
         categoryTextField.inputAccessoryView = toolBar
@@ -84,17 +86,18 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerView.tag == 1 ? categories.count : sortItems.count
+        return pickerView.tag == 1 ? Globals.sharedInstance.categories.count : sortItems.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerView.tag == 1 ? categories[row] : sortItems[row]
+        return pickerView.tag == 1 ? Globals.sharedInstance.categories[row].name! : sortItems[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         if pickerView.tag == 1 {
-            categoryTextField.text = categories[row]
+            selectedCategoryID = Globals.sharedInstance.categories[row].id!
+            categoryTextField.text = Globals.sharedInstance.categories[row].name!
         }
         else {
             sortByTextField.text = sortItems[row]
@@ -102,22 +105,4 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
     }
 
-//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-//
-//        var label: UILabel
-//
-//        if let view = view as? UILabel {
-//            label = view
-//        } else {
-//            label = UILabel()
-//        }
-//
-//        label.textColor = UIColor(red:0.63, green:0.63, blue:0.63, alpha:1.0)
-//        label.textAlignment = .center
-//        label.font = UIFont(name: "Avenir-Medium", size: 16.0)
-//
-//        label.text = pickerView.tag == 1 ? categories[row] : sortItems[row]
-//
-//        return label
-//    }
 }

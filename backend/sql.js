@@ -5,26 +5,26 @@ config = mysql.c
 
 var connection
 
-if(!process.env.dbPath) {
+// if(!process.env.dbPath) {
     //  if(false) {
    connection = mysql.createConnection({
         host     : 'localhost',
         user     : 'root',
-        password : 'password',
-        database : 'dbo',
+        password : 'Team5_gdsd',
+        database : 'SDP_Project',
         multipleStatements: true
     });
-}
-else {
-    connection = mysql.createConnection({
-        host     : 'classifiedappdb.csyrkhn1j1ii.us-east-1.rds.amazonaws.com',
-        port     : 3306,
-        user     : 'admin',
-        password : '{C^^$^+E4p}x~H&5',
-        database : 'dbo',
-        multipleStatements: true
-    });
-}
+// }
+// else {
+//     connection = mysql.createConnection({
+//         host     : 'classifiedappdb.csyrkhn1j1ii.us-east-1.rds.amazonaws.com',
+//         port     : 3306,
+//         user     : 'admin',
+//         password : '{C^^$^+E4p}x~H&5',
+//         database : 'SDP_Project',
+//         multipleStatements: true
+//     });
+// }
 
 function connectDB(cb) {
     connection.connect(function (err) {
@@ -107,7 +107,7 @@ function getAllCategoriesForAdmin(cb) {
 
 function getAllProducts(sq,cb){
     
-    var queryString = "SELECT p.id, p.title, p.location, p.status, p.category, p.price, p.thumbnail FROM Product p"
+    var queryString = "SELECT p.id, p.title, p.desc, p.location, p.status, p.category, p.price, p.thumbnail FROM Product p"
     connection.query(queryString,
         function(err, rows) {
             
@@ -121,7 +121,7 @@ function getAllProducts(sq,cb){
 // Product Queries... 
 //Product Status, 
 function searchProducts(searchQuery, cat, pMin, pMax, sortT, sortV, cb) {
-    var queryString = "SELECT p.id, p.title, p.location, p.status, p.category, p.price, p.thumbnail, p.createdAt FROM Product p WHERE p.status = 1";
+    var queryString = "SELECT p.id, p.title, p.desc, p.location, p.status, p.category, p.price, p.thumbnail, p.createdAt, u.name FROM Product p, User u WHERE p.owner = u.id AND p.status = 1";
     var paramsCount = 0
     if (searchQuery) {
         paramsCount++;
@@ -176,7 +176,7 @@ function searchProducts(searchQuery, cat, pMin, pMax, sortT, sortV, cb) {
 }
 
 function productDetails(id, cb) {
-    var queryString = "SELECT * FROM Product p WHERE p.status != 2 AND p.isApproved = true AND p.id = id";
+    var queryString = `SELECT * FROM Product p WHERE p.status != 2 AND p.isApproved = true AND p.id = ${id}`;
     connection.query(queryString,
     function(err, rows) {
         if (err) cb(err);
@@ -216,13 +216,13 @@ function updateUserStatus(id,status,cb){
 }
 
 function productDetails(id, user_id, cb) {
-    // var queryString = "SELECT * FROM dbo.Product p where p.status != 2 AND p.id=" + id;
-    var queryString = "SELECT p.id, p.title, p.desc, p.owner, p.category, p.createdAt, p.status, p.price, p.location, p.thumbnail, u.name as ownerName, u.email as ownerEmail FROM dbo.Product as p inner join dbo.User as u on u.id = p.owner where p.id=" + id + " GROUP BY p.id ";
+    // var queryString = "SELECT * FROM SDP_Project.Product p where p.status != 2 AND p.id=" + id;
+    var queryString = "SELECT p.id, p.title, p.desc, p.owner, p.category, p.createdAt, p.status, p.price, p.location, p.thumbnail, u.name as ownerName, u.email as ownerEmail FROM SDP_Project.Product as p inner join SDP_Project.User as u on u.id = p.owner where p.id=" + id + " GROUP BY p.id ";
     connection.query(queryString,
         function (err, rows) {
             if (err) cb(err);
             else {
-                var productImage = "SELECT * FROM dbo.ProductImage p where p.productId=" + id;
+                var productImage = "SELECT * FROM SDP_Project.ProductImage p where p.productId=" + id;
                 connection.query(productImage,
                     function (err, images) {
                         if (err) cb(err);
@@ -279,7 +279,7 @@ function getChatHistoryById(chatSessionId, loggedInUserId, cb) {
     var queryString = `SELECT c.*,
 	U.name as opponentUserName,
     MU.name as myName
-        FROM dbo.chat c
+        FROM SDP_Project.chat c
         inner join User U on (U.id = c.senderId and c.senderId <> `+ loggedInUserId + `) OR (U.id = c.receiverId and c.receiverId <>` + loggedInUserId + `)
         inner join User MU on (MU.id = c.senderId and c.senderId <> U.Id) OR (MU.id = c.receiverId and c.receiverId <> U.Id)
     WHERE chatSessionID = `+ chatSessionId + `
@@ -386,7 +386,7 @@ function insertChat(body, cb) {
 
     //body.message = body.message.replaceAll("'", "\'");  
     var queryString = `    
-INSERT INTO dbo.chat
+INSERT INTO SDP_Project.chat
 ( Message ,
   Date ,
   SenderID ,

@@ -12,7 +12,7 @@ class SideMenuViewController: UIViewController {
 
     @IBOutlet weak var menuTableView: UITableView?
     
-    let menu = ["Home","Profile","Orders","Add Product","Policy","Logout"]
+    let menu = ["Home","Profile","Policy","Logout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,15 +47,25 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
         if menu[indexPath.row] == "Home" {
             self.navigationController?.popToRootViewController(animated: true)
         }
-        else if menu[indexPath.row] == "Add Product" {
-            self.performSegue(withIdentifier: "addProductSegue", sender: nil)
+        else if menu[indexPath.row] == "Profile" {
+            
+        }
+        else if menu[indexPath.row] == "Policy" {
+            
         }
         else if menu[indexPath.row] == "Logout" {
+            
+            guard let window = UIApplication.shared.keyWindow, let rootViewController = window.rootViewController else {
+                return
+            }
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(identifier: "loginController")
             
-            self.navigationController?.setViewControllers([vc], animated: true)
+            self.dismiss(animated: false) {
+                (rootViewController as? UINavigationController)?.setViewControllers([vc], animated: false)
+            }
+            
         }
         
     }

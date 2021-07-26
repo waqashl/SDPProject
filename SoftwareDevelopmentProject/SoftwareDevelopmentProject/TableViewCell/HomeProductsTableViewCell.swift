@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class HomeProductsTableViewCell: UITableViewCell {
 
@@ -17,7 +18,7 @@ class HomeProductsTableViewCell: UITableViewCell {
     @IBOutlet weak var viewAllBtn: UIButton!
     @IBOutlet weak var productsCollectionView: UICollectionView!
     
-    
+    var products = [Product]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,13 +39,24 @@ extension HomeProductsTableViewCell: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 5
+        return products.count > 5 ? 5 : products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCollectionCell", for: indexPath) as! ProductCollectionViewCell
+        
+        cell.productPrice.text = "$ \(products[indexPath.item].price!)"
+        cell.productTitle.text = products[indexPath.item].title!
+        if products[indexPath.row].thumbnailImage != nil {
+            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+products[indexPath.row].thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
+        }
+        else {
+            cell.productImage.image = UIImage.init(named: "placeholder")
+        }
 
+        
+        
         return cell
     }
     

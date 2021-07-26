@@ -12,9 +12,12 @@ class Category {
 
     var id: Int?
     var name: String?
-    var description: String?
+    var isActive: Bool?
     
-    init() {
+    init(id:Int, name:String, isActive:Bool) {
+        self.id = id
+        self.name = name
+        self.isActive = isActive
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
+class ChatViewController: BaseViewController {
 
     
     @IBOutlet weak var chatTableView: UITableView!

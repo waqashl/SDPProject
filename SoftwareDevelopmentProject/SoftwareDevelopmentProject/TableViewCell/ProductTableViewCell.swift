@@ -18,6 +18,7 @@ class ProductTableViewCell: UITableViewCell {
     @IBOutlet weak var productDescription: UILabel!
     
     @IBOutlet weak var uploadedBy: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
     
     
     override func awakeFromNib() {

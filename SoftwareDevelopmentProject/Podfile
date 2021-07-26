@@ -11,7 +11,9 @@ pod 'SideMenu'
 pod 'IQKeyboardManagerSwift'
 pod 'PopupDialog', '~> 1.1'
 pod 'RangeSeekSlider'
-
+pod 'Alamofire', '~> 5.0.0-rc.2'
+pod 'SDWebImage', '~> 5.0'
+pod 'ImagePicker'
 
 
 end

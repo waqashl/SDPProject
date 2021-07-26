@@ -16,8 +16,12 @@ class Product {
     var price: Double?
     var description: String?
     var categoryID: Int?
-    var images: [ProductImage]?
+    var images = [ProductImage]()
     var thumbnailImage: String?
+    var date: String?
+    var ownerName: String?
+    var ownerID: Int?
+    var status: Int?
     
     init(){
     }
@@ -29,10 +33,17 @@ class ProductImage {
     
     var id: Int?
     var productId: Int?
-    var url: String?
+    var image: String?
     
     init(){
     }
     
-    
 }
+//
+//
+//class Filter {
+//    var search = ""
+//    var categoryID : Int?
+//    var minPrice = 0
+//    var max
+//}

@@ -7,24 +7,77 @@
 //
 
 import UIKit
+import PopupDialog
 
-class AdminCategoriesViewController: UIViewController {
+class AdminCategoriesViewController: BaseViewController {
 
+    var categories = [Category]()
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        getCategories()
     }
-    */
+    
+    func getCategories(){
+        RestApiManager.sharedInstance.makeGetRequest(vc: nil, url: "category/all", params: nil, successCompletionHandler: { (data) in
+            
+            guard let data = data as? [String: Any] else { return }
 
+            if (data["status"] as? String == "Failed") {
+                print("Failed to get categories")
+            }
+            else {
+                let cat = data["categories"] as! [Any]
+                self.categories.removeAll()
+                for c in cat {
+                    let categoryData = c as! [String:Any]
+                    self.categories.append(Category.init(id: categoryData["id"] as? Int ?? 0, name: categoryData["name"] as? String ?? "", isActive: categoryData["isActive"] as? Bool ?? true))
+                }
+                
+                print(self.categories.count)
+                self.tableView.reloadData()
+            }
+            
+        }) { (err) in
+            print(err)
+        }
+    }
+    
+    
+    @IBAction func addBtnAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "addCategory") as AddNewCategoryViewController
+        
+        let popup = PopupDialog(viewController: vc, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
+
+        vc.popUp = popup
+        self.present(popup, animated: true, completion: nil)
+    }
+
+}
+
+
+extension AdminCategoriesViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell") as! CategoryTableViewCell
+        
+        cell.categoryName.text = categories[indexPath.row].name
+                
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }

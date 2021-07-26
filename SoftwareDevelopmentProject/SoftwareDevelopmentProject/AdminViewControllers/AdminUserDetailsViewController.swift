@@ -8,23 +8,55 @@
 
 import UIKit
 
-class AdminUserDetailsViewController: UIViewController {
+class AdminUserDetailsViewController: BaseViewController {
+
+    
+    var user: User?
+    
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var dobLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    @IBOutlet weak var blockBtn: UIButton!
+    @IBOutlet weak var unBlockBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        setData()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setData() {
+        nameLabel.text = user?.name!
+        emailLabel.text = user?.email!
+        addressLabel.text = user?.address!
+        dobLabel.text = user?.getFormattedData()
     }
-    */
+    
+    @IBAction func blockUserAction(_ sender: Any) {
+        let param = ["id":self.user!.id! ,"status":"block"] as [String : Any]
+
+        RestApiManager.sharedInstance.makePostRequest(vc: self, url: "user/update/status", params: param, successCompletionHandler: { (data) in
+            
+            self.showErrorAlert(title: "Success", message: "User Blocked")
+
+        }) { (err) in
+            print(err)
+        }
+    }
+    
+    @IBAction func unblockUserAction(_ sender: Any) {
+        let param = ["id":self.user!.id! ,"status":"unblock"] as [String : Any]
+
+        RestApiManager.sharedInstance.makePostRequest(vc: self, url: "user/update/status", params: param, successCompletionHandler: { (data) in
+            
+            self.showErrorAlert(title: "Success", message: "User Un-Blocked")
+
+        }) { (err) in
+            print(err)
+        }
+    }
 
 }

@@ -7,10 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B67C90326ADD772007C31E9 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B67C90226ADD772007C31E9 /* AlertViewController.swift */; };
+		6B67C90526AEF643007C31E9 /* ConfirmationAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B67C90426AEF643007C31E9 /* ConfirmationAlertViewController.swift */; };
+		6B67C90726AEF816007C31E9 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B67C90626AEF816007C31E9 /* CategoryTableViewCell.swift */; };
+		6B67C90926AF1523007C31E9 /* AddNewCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B67C90826AF1523007C31E9 /* AddNewCategoryViewController.swift */; };
 		6B6A376E268BAEB600F16192 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A376D268BAEB600F16192 /* AppDelegate.swift */; };
 		6B6A3775268BAEB600F16192 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6A3773268BAEB600F16192 /* Main.storyboard */; };
 		6B6A3777268BAEBA00F16192 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B6A3776268BAEBA00F16192 /* Assets.xcassets */; };
 		6B6A377A268BAEBA00F16192 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B6A3778268BAEBA00F16192 /* LaunchScreen.storyboard */; };
+		6B74A77526AC2FE500840F53 /* RestApiManganer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B74A77426AC2FE500840F53 /* RestApiManganer.swift */; };
+		6B74A77726AC34FD00840F53 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B74A77626AC34FD00840F53 /* Globals.swift */; };
+		6B74A77926AC35DB00840F53 /* LoadingPartialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B74A77826AC35DB00840F53 /* LoadingPartialViewController.swift */; };
 		6BE00D282692170200C9B85A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE00D272692170200C9B85A /* LoginViewController.swift */; };
 		6BE00D2A2692170F00C9B85A /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE00D292692170F00C9B85A /* RegisterViewController.swift */; };
 		6BE00D2C2692171D00C9B85A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE00D2B2692171D00C9B85A /* HomeViewController.swift */; };
@@ -54,12 +61,19 @@
 /* Begin PBXFileReference section */
 		410838F3F2132804B2E50292 /* Pods_SoftwareDevelopmentProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SoftwareDevelopmentProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		582C7315CCA1390222FB8B6F /* Pods-SoftwareDevelopmentProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoftwareDevelopmentProject.debug.xcconfig"; path = "Target Support Files/Pods-SoftwareDevelopmentProject/Pods-SoftwareDevelopmentProject.debug.xcconfig"; sourceTree = "<group>"; };
+		6B67C90226ADD772007C31E9 /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		6B67C90426AEF643007C31E9 /* ConfirmationAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationAlertViewController.swift; sourceTree = "<group>"; };
+		6B67C90626AEF816007C31E9 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		6B67C90826AF1523007C31E9 /* AddNewCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCategoryViewController.swift; sourceTree = "<group>"; };
 		6B6A376A268BAEB600F16192 /* SoftwareDevelopmentProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoftwareDevelopmentProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B6A376D268BAEB600F16192 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B6A3774268BAEB600F16192 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6B6A3776268BAEBA00F16192 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B6A3779268BAEBA00F16192 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B6A377B268BAEBA00F16192 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B74A77426AC2FE500840F53 /* RestApiManganer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiManganer.swift; sourceTree = "<group>"; };
+		6B74A77626AC34FD00840F53 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		6B74A77826AC35DB00840F53 /* LoadingPartialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPartialViewController.swift; sourceTree = "<group>"; };
 		6BE00D272692170200C9B85A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6BE00D292692170F00C9B85A /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		6BE00D2B2692171D00C9B85A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +126,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B67C90126ADD744007C31E9 /* AlertControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6B67C90226ADD772007C31E9 /* AlertViewController.swift */,
+				6B67C90426AEF643007C31E9 /* ConfirmationAlertViewController.swift */,
+				6B67C90826AF1523007C31E9 /* AddNewCategoryViewController.swift */,
+			);
+			path = AlertControllers;
+			sourceTree = "<group>";
+		};
 		6B6A3761268BAEB500F16192 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +157,7 @@
 		6B6A376C268BAEB600F16192 /* SoftwareDevelopmentProject */ = {
 			isa = PBXGroup;
 			children = (
+				6B67C90126ADD744007C31E9 /* AlertControllers */,
 				6BF3CEE1269648D600D08FF5 /* Models */,
 				6BF3CEDE269637D400D08FF5 /* Utils */,
 				6BE00D4926931DE300C9B85A /* CollectionViewCell */,
@@ -164,6 +189,7 @@
 				6BF3CED02695C00C00D08FF5 /* FilterViewController.swift */,
 				6BF3CED22695E77200D08FF5 /* AddProductViewController.swift */,
 				6BF3CEDC2696263D00D08FF5 /* ChatViewController.swift */,
+				6B74A77826AC35DB00840F53 /* LoadingPartialViewController.swift */,
 			);
 			path = viewControllers;
 			sourceTree = "<group>";
@@ -194,6 +220,7 @@
 				6BF3CED62695FE6B00D08FF5 /* ChatRoomTableViewCell.swift */,
 				6BF3CED82696076000D08FF5 /* SenderTableViewCell.swift */,
 				6BF3CEDA269607C300D08FF5 /* RecipientTableViewCell.swift */,
+				6B67C90626AEF816007C31E9 /* CategoryTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -212,6 +239,8 @@
 			isa = PBXGroup;
 			children = (
 				6BF3CEDF269637E900D08FF5 /* Utils.swift */,
+				6B74A77426AC2FE500840F53 /* RestApiManganer.swift */,
+				6B74A77626AC34FD00840F53 /* Globals.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -360,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BE00D372692682500C9B85A /* AdminViewController.swift in Sources */,
+				6B67C90326ADD772007C31E9 /* AlertViewController.swift in Sources */,
 				6BE00D4B26931E1500C9B85A /* CarouselTableViewCell.swift in Sources */,
 				6BE00D2A2692170F00C9B85A /* RegisterViewController.swift in Sources */,
 				6BE00D5126931E4E00C9B85A /* OrderTableViewCell.swift in Sources */,
@@ -381,11 +411,15 @@
 				6BE00D322692175300C9B85A /* CartViewController.swift in Sources */,
 				6BE00D342692287800C9B85A /* RoundedButton.swift in Sources */,
 				6BF3CEE9269650EB00D08FF5 /* Chat.swift in Sources */,
+				6B74A77926AC35DB00840F53 /* LoadingPartialViewController.swift in Sources */,
 				6BE00D282692170200C9B85A /* LoginViewController.swift in Sources */,
+				6B74A77526AC2FE500840F53 /* RestApiManganer.swift in Sources */,
+				6B67C90526AEF643007C31E9 /* ConfirmationAlertViewController.swift in Sources */,
 				6BE00D5326931E6800C9B85A /* CarouselCollectionViewCell.swift in Sources */,
 				6B6A376E268BAEB600F16192 /* AppDelegate.swift in Sources */,
 				6BF3CED12695C00C00D08FF5 /* FilterViewController.swift in Sources */,
 				6BF3CED32695E77200D08FF5 /* AddProductViewController.swift in Sources */,
+				6B74A77726AC34FD00840F53 /* Globals.swift in Sources */,
 				6BE00D2C2692171D00C9B85A /* HomeViewController.swift in Sources */,
 				6BF3CEE3269648EF00D08FF5 /* Product.swift in Sources */,
 				6BE00D3F2692686B00C9B85A /* AdminOrdersViewController.swift in Sources */,
@@ -393,6 +427,8 @@
 				6BE00D392692683700C9B85A /* AdminProductsViewController.swift in Sources */,
 				6BE00D302692174300C9B85A /* ProductDetailViewController.swift in Sources */,
 				6BF3CEE526964FF000D08FF5 /* User.swift in Sources */,
+				6B67C90726AEF816007C31E9 /* CategoryTableViewCell.swift in Sources */,
+				6B67C90926AF1523007C31E9 /* AddNewCategoryViewController.swift in Sources */,
 				6BF3CEE72696509C00D08FF5 /* Category.swift in Sources */,
 				6BF3CEDB269607C300D08FF5 /* RecipientTableViewCell.swift in Sources */,
 				6BF3CED72695FE6B00D08FF5 /* ChatRoomTableViewCell.swift in Sources */,
