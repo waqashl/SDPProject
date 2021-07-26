@@ -10,13 +10,16 @@ import UIKit
 
 class SideMenuViewController: UIViewController {
 
-    @IBOutlet weak var menuTableView: UITableView?
+    @IBOutlet weak var menuTableView: UITableView!
+    @IBOutlet weak var userNameLabel: UILabel!
     
     let menu = ["Home","Profile","Policy","Logout"]
+    let images = ["home","userIcon","comment","logout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.userNameLabel.text = Globals.sharedInstance.user!.name!
         // Do any additional setup after loading the view.
     }
 
@@ -33,6 +36,7 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell") as! SideMenuTableViewCell
         
         cell.menuLabel.text = menu[indexPath.row]
+        cell.menuIcon.image = UIImage.init(named: images[indexPath.row])
         
         return cell
         
@@ -48,10 +52,11 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             self.navigationController?.popToRootViewController(animated: true)
         }
         else if menu[indexPath.row] == "Profile" {
-            
+            self.performSegue(withIdentifier: "profileSegue", sender: nil)
         }
         else if menu[indexPath.row] == "Policy" {
-            
+//            policySegue
+            self.performSegue(withIdentifier: "policySegue", sender: nil)
         }
         else if menu[indexPath.row] == "Logout" {
             

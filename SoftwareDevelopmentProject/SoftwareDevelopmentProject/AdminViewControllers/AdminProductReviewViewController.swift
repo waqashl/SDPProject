@@ -24,6 +24,7 @@ class AdminProductReviewViewController: BaseViewController {
     @IBOutlet weak var productDescription: UILabel!
     @IBOutlet weak var productCategory: UILabel!
     @IBOutlet weak var statusLabel : UILabel!
+    @IBOutlet weak var productLocation: UILabel!
     
     @IBOutlet weak var approveBtn: UIButton!
     @IBOutlet weak var rejectBtn: UIButton!
@@ -58,6 +59,7 @@ class AdminProductReviewViewController: BaseViewController {
                     self.product.date = productData["createdAt"] as? String ?? ""
                     self.product.ownerName = productData["ownerName"] as? String ?? ""
                     self.product.status = productData["status"] as? Int ?? 0
+                    self.product.location = productData["location"] as? String ?? ""
                 }
                 
                 for i in images {
@@ -83,7 +85,8 @@ class AdminProductReviewViewController: BaseViewController {
         productTitle.text = product.title!
         productDescription.text = product.description!
         uploadedBy.text = product.ownerName!
-        price.text = "$ \(product.price!)"
+        price.text = "€ \(product.price!)"
+        productLocation.text = product.location!
         
         if product.status == 0 {
             statusLabel.text = "Pending"

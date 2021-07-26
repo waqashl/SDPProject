@@ -22,6 +22,8 @@ class ProductDetailViewController: BaseViewController {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var productDescription: UILabel!
     @IBOutlet weak var productCategory: UILabel!
+    @IBOutlet weak var productLocation: UILabel!
+
     
     @IBOutlet weak var messageBtn: UIButton!
     
@@ -56,6 +58,8 @@ class ProductDetailViewController: BaseViewController {
                     self.product.thumbnailImage = productData["thumbnail"] as? String ?? ""
                     self.product.date = productData["createdAt"] as? String ?? ""
                     self.product.ownerName = productData["ownerName"] as? String ?? ""
+                    self.product.location = productData["location"] as? String ?? ""
+                    self.product.ownerID = productData["owner"] as? Int ?? 0
                 }
                 
                 for i in images {
@@ -81,8 +85,9 @@ class ProductDetailViewController: BaseViewController {
         productTitle.text = product.title!
         productDescription.text = product.description!
         uploadedBy.text = product.ownerName!
-        price.text = "$ \(product.price!)"
+        price.text = "€ \(product.price!)"
         productCategory.text = Globals.sharedInstance.getCategoryName(id: product.categoryID!)
+        productLocation.text = product.location!
         
         if product.ownerID! == Globals.sharedInstance.user!.id! {
             self.markAsSoldBtn.isHidden = false
@@ -97,6 +102,19 @@ class ProductDetailViewController: BaseViewController {
     
     
     @IBAction func markAsSold(_ sender: Any) {
+        
+        let param = ["id":self.id! ,"status":"sold"] as [String : Any]
+        
+        RestApiManager.sharedInstance.makePostRequest(vc: self, url: "products/update/status", params: param, successCompletionHandler: { (data) in
+            
+            self.showErrorAlert(title: "Success", message: "Product marked as sold.")
+
+            self.getData()
+            
+        }) { (err) in
+            print(err)
+        }
+        
         
     }
 

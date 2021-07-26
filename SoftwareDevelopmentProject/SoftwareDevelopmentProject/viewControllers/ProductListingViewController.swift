@@ -11,16 +11,23 @@ import PopupDialog
 import SDWebImage
 
 class ProductListingViewController: BaseViewController {
-
+    
     
     @IBOutlet weak var productTable: UITableView!
-//    productDetailSegue
-    
     @IBOutlet weak var searchBar: UISearchBar!
     
     
     var products = [Product]()
     var selectedProductID : Int?
+    
+    //filters
+    let sortItems = ["Highest Price", "Lowest Price","Date Added"]
+    var categoryID: Int?
+    var sortBy: Int?
+    var minPrice: Int?
+    var maxPrice: Int?
+    
+    var applyFilter = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +37,11 @@ class ProductListingViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         selectedProductID = nil
+        
+        if applyFilter {
+            applyFilter = false
+            getData()
+        }
     }
     
     @IBAction func filterBtnAction(_ sender: Any) {
@@ -39,7 +51,7 @@ class ProductListingViewController: BaseViewController {
         
         vc.hostController = self
         let popup = PopupDialog(viewController: vc, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
-
+        
         vc.popUp = popup
         self.present(popup, animated: true, completion: nil)
     }
@@ -51,38 +63,38 @@ class ProductListingViewController: BaseViewController {
             url += "?sq="+searchBar.text!.trimmingCharacters(in: .whitespaces)
         }
         
-    RestApiManager.sharedInstance.makeGetRequest(vc: self, url: url, params: nil, successCompletionHandler: { (data) in
-        
-        guard let data = data as? [String: Any] else { return }
-        if (data["status"] as! String == "Success") {
+        RestApiManager.sharedInstance.makeGetRequest(vc: self, url: url, params: nil, successCompletionHandler: { (data) in
             
-            let product = data["products"] as! [Any]
-            self.products.removeAll()
-            
-            for p in product {
-                let productData = p as! [String:Any]
+            guard let data = data as? [String: Any] else { return }
+            if (data["status"] as! String == "Success") {
                 
-                let newProduct = Product()
-                newProduct.id = productData["id"] as? Int ?? 0
-                newProduct.title = productData["title"] as? String ?? ""
-                newProduct.price = productData["price"] as? Double ?? 0.0
-                newProduct.description = productData["desc"] as? String ?? ""
-                newProduct.categoryID = productData["category"] as? Int ?? 0
-                newProduct.thumbnailImage = productData["thumbnail"] as? String ?? ""
-                newProduct.date = productData["createdAt"] as? String ?? ""
-                newProduct.ownerName = productData["name"] as? String ?? ""
+                let product = data["products"] as! [Any]
+                self.products.removeAll()
                 
-                self.products.append(newProduct)
+                for p in product {
+                    let productData = p as! [String:Any]
+                    
+                    let newProduct = Product()
+                    newProduct.id = productData["id"] as? Int ?? 0
+                    newProduct.title = productData["title"] as? String ?? ""
+                    newProduct.price = productData["price"] as? Double ?? 0.0
+                    newProduct.description = productData["desc"] as? String ?? ""
+                    newProduct.categoryID = productData["category"] as? Int ?? 0
+                    newProduct.thumbnailImage = productData["thumbnail"] as? String ?? ""
+                    newProduct.date = productData["createdAt"] as? String ?? ""
+                    newProduct.ownerName = productData["name"] as? String ?? ""
+                    
+                    self.products.append(newProduct)
+                }
+                
+                self.productTable.reloadData()
             }
             
-            self.productTable.reloadData()
+            
+        }) { (err) in
+            print(err)
         }
-
         
-    }) { (err) in
-        print(err)
-    }
-
     }
     
     
@@ -114,7 +126,7 @@ extension ProductListingViewController : UITableViewDelegate, UITableViewDataSou
         let product = products[indexPath.row]
         
         cell.productTitle.text = product.title
-        cell.productPrice.text = "$ \(product.price!)"
+        cell.productPrice.text = "€ \(product.price!)"
         cell.productDescription.text = product.description!
         cell.uploadedBy.text = product.ownerName!
         
@@ -124,7 +136,7 @@ extension ProductListingViewController : UITableViewDelegate, UITableViewDataSou
         else {
             cell.productImage.image = UIImage.init(named: "placeholder")
         }
-
+        
         
         
         return cell

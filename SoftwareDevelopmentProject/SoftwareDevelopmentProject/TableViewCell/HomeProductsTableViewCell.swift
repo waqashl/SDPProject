@@ -23,8 +23,8 @@ class HomeProductsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.productsCollectionView.dataSource = self
-        self.productsCollectionView.delegate = self
+//        self.productsCollectionView.dataSource = self
+//        self.productsCollectionView.delegate = self
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -35,29 +35,29 @@ class HomeProductsTableViewCell: UITableViewCell {
     
 }
 
-extension HomeProductsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return products.count > 5 ? 5 : products.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCollectionCell", for: indexPath) as! ProductCollectionViewCell
-        
-        cell.productPrice.text = "$ \(products[indexPath.item].price!)"
-        cell.productTitle.text = products[indexPath.item].title!
-        if products[indexPath.row].thumbnailImage != nil {
-            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+products[indexPath.row].thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
-        }
-        else {
-            cell.productImage.image = UIImage.init(named: "placeholder")
-        }
-
-        
-        
-        return cell
-    }
-    
-}
+//extension HomeProductsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+//
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//
+//        return products.count > 5 ? 5 : products.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCollectionCell", for: indexPath) as! ProductCollectionViewCell
+//
+//        cell.productPrice.text = "€ \(products[indexPath.item].price!)"
+//        cell.productTitle.text = products[indexPath.item].title!
+//        if products[indexPath.row].thumbnailImage != nil {
+//            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+products[indexPath.row].thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
+//        }
+//        else {
+//            cell.productImage.image = UIImage.init(named: "placeholder")
+//        }
+//
+//
+//
+//        return cell
+//    }
+//
+//}

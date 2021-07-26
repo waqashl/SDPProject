@@ -102,7 +102,7 @@ extension AdminProductsViewController : UITableViewDelegate, UITableViewDataSour
         let product = products[indexPath.row]
         
         cell.productTitle.text = product.title
-        cell.productPrice.text = "$ \(product.price!)"
+        cell.productPrice.text = "€ \(product.price!)"
         cell.productDescription.text = product.description!
         cell.uploadedBy.text = product.ownerName!
         

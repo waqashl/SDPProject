@@ -22,6 +22,7 @@ class Product {
     var ownerName: String?
     var ownerID: Int?
     var status: Int?
+    var location: String?
     
     init(){
     }

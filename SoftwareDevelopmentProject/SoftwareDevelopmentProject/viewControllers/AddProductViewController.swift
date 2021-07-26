@@ -19,6 +19,7 @@ class AddProductViewController: BaseViewController {
     @IBOutlet weak var desc: UITextView!
     @IBOutlet weak var price: UITextField!
     @IBOutlet weak var category: UITextField!
+    @IBOutlet weak var location: UITextField!
     
     @IBOutlet weak var productImageCollectionView: UICollectionView!
     
@@ -63,7 +64,6 @@ class AddProductViewController: BaseViewController {
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
-        
         toolBar.setItems([spaceButton,spaceButton,doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
         
@@ -80,8 +80,9 @@ class AddProductViewController: BaseViewController {
         guard let productTitle = titleText.text?.trimmingCharacters(in: .whitespaces) else { return }
         guard let desc = desc.text?.trimmingCharacters(in: .whitespaces) else { return }
         guard let price = price.text?.trimmingCharacters(in: .whitespaces) else { return }
+        guard let location = location.text?.trimmingCharacters(in: .whitespaces) else { return }
         
-        if (productTitle == "" || desc == "" || price == "" || selectedCategoryID == nil) {
+        if (productTitle == "" || desc == "" || price == "" || location == "" || selectedCategoryID == nil) {
             self.showErrorAlert(title: "Error", message: "All fields are required")
         }
         else if images.count == 0 {
@@ -90,7 +91,7 @@ class AddProductViewController: BaseViewController {
         else {
             //upload product
             
-            let params = ["title": productTitle, "desc": desc, "category" : selectedCategoryID!, "price": Int(price) ?? 100, "location":"Fulda", "owner":Globals.sharedInstance.user!.id!] as [String : Any]
+            let params = ["title": productTitle, "desc": desc, "category" : selectedCategoryID!, "price": Int(price) ?? 100, "location":location , "owner":Globals.sharedInstance.user!.id!] as [String : Any]
             
             var data = [Data]()
             for i in images {
@@ -108,6 +109,8 @@ class AddProductViewController: BaseViewController {
                     self.showErrorAlert(title: title, message: message)
                 }
                 else {
+                    
+                    self.showErrorAlert(title: "Success", message: "Product Added.")
                     self.navigationController?.popViewController(animated: true)
                 }
                 
@@ -165,7 +168,7 @@ extension AddProductViewController: ImagePickerDelegate {
     }
     
     func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
-        
+        imagePickerController.dismiss(animated: true, completion: nil)
     }
     
 }

@@ -80,4 +80,14 @@ extension AdminCategoriesViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
+    
+//    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+//            // handle delete (by removing the data from your array and updating the tableview)
+//        }
+//    }
 }

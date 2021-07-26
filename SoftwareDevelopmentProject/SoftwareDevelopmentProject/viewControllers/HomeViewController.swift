@@ -16,6 +16,8 @@ class HomeViewController: BaseViewController {
     var products = [Product]()
     var categoryProducts = [Int: [Product]]()
     
+    var selectedProductID: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Home"
@@ -24,6 +26,7 @@ class HomeViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        selectedProductID = nil
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         getData()
     }
@@ -75,6 +78,15 @@ class HomeViewController: BaseViewController {
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "productDetailSegue" {
+            let vc = segue.destination as! ProductDetailViewController
+            vc.id = selectedProductID
+        }
+    }
+    
+    
 }
 
 
@@ -102,6 +114,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             let p = categoryProducts[keys[indexPath.row]]
             
             cell.categoryName.text = Globals.sharedInstance.getCategoryName(id: keys[indexPath.row])
+            cell.productsCollectionView.delegate = self
+            cell.productsCollectionView.dataSource = self
+            cell.productsCollectionView.tag = indexPath.row
             
             cell.products = p!
             
@@ -123,3 +138,42 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let keys = Array(categoryProducts.keys)
+        let products = categoryProducts[keys[collectionView.tag]]!
+
+        return products.count > 5 ? 5 : products.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCollectionCell", for: indexPath) as! ProductCollectionViewCell
+        
+        let keys = Array(categoryProducts.keys)
+        let products = categoryProducts[keys[collectionView.tag]]!
+        
+        cell.productPrice.text = "€ \(products[indexPath.item].price!)"
+        cell.productTitle.text = products[indexPath.item].title!
+        if products[indexPath.row].thumbnailImage != nil {
+            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+products[indexPath.row].thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
+        }
+        else {
+            cell.productImage.image = UIImage.init(named: "placeholder")
+        }
+
+        return cell
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let keys = Array(categoryProducts.keys)
+        let products = categoryProducts[keys[collectionView.tag]]!
+        selectedProductID = products[indexPath.item].id!
+        performSegue(withIdentifier: "productDetailSegue", sender: collectionView)
+    }
+
+}
+
