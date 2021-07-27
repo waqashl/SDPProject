@@ -63,6 +63,8 @@ class ProductDetailViewController: BaseViewController {
                     self.product.status = productData["status"] as? Int ?? 0
                 }
                 
+                self.product.images.removeAll()
+
                 for i in images {
                     let image = i as! [String: Any]
                     var productImage = ProductImage()

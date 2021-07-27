@@ -62,6 +62,8 @@ class AdminProductReviewViewController: BaseViewController {
                     self.product.location = productData["location"] as? String ?? ""
                 }
                 
+                self.product.images.removeAll()
+                
                 for i in images {
                     let image = i as! [String: Any]
                     var productImage = ProductImage()

@@ -81,7 +81,7 @@ class AdminCategoriesViewController: BaseViewController {
         let param = ["categoryId":categories[indexPath.row].id!]
         let url = "category/delete"
         
-        RestApiManager.sharedInstance.makePostRequest(vc: self, url: url, params: param, successCompletionHandler: { (data) in
+        RestApiManager.sharedInstance.makePostRequest(vc: nil, url: url, params: param, successCompletionHandler: { (data) in
             
             self.showErrorAlert(title: "Success", message: "Category Deleted.", delegate: self)
                         

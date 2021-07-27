@@ -57,8 +57,7 @@ class RestApiManager {
     
     func makePostRequest(vc:BaseViewController?, url:String, params :Parameters, successCompletionHandler: @escaping (Any?) -> Swift.Void, failureCompletionHandler: @escaping (Any?) -> Swift.Void){
         
-        if vc != nil
-        {
+        if vc != nil {
             vc!.showLoading()
         }
         
