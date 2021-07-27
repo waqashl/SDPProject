@@ -28,7 +28,7 @@ class FilterViewController: UIViewController {
     let categoryPicker = UIPickerView()
     let sortPicker = UIPickerView()
     
-    let sortItems = ["Highest Price", "Lowest Price","Date Added"]
+    let sortItems = ["Price-High to Low", "Price-Low to High","Recent First"]
     
     var selectedCategoryID : Int?
     
@@ -93,9 +93,9 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction func applyBtnAction(_ sender: Any) {
-        self.hostController!.applyFilter = true
         self.hostController!.minPrice = Int(priceRange.selectedMinValue)
         self.hostController!.maxPrice = Int(priceRange.selectedMaxValue)
+        self.hostController!.getData()
         popUp!.dismiss()
     }
     

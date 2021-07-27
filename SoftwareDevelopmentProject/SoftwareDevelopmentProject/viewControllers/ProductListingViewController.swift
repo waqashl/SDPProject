@@ -16,18 +16,19 @@ class ProductListingViewController: BaseViewController {
     @IBOutlet weak var productTable: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var noProductView: UIView!
     
     var products = [Product]()
     var selectedProductID : Int?
     
     //filters
-    let sortItems = ["Highest Price", "Lowest Price","Date Added"]
+    let sortItems = ["Price-High to Low", "Price-Low to High","Recent First"]
     var categoryID: Int?
     var sortBy: Int?
     var minPrice: Int?
     var maxPrice: Int?
     
-    var applyFilter = false
+//    var applyFilter = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +39,10 @@ class ProductListingViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         selectedProductID = nil
         
-        if applyFilter {
-            applyFilter = false
-            getData()
-        }
+//        if applyFilter {
+//            applyFilter = false
+//            getData()
+//        }
     }
     
     @IBAction func filterBtnAction(_ sender: Any) {
@@ -58,12 +59,55 @@ class ProductListingViewController: BaseViewController {
     
     
     func getData() {
-        var url = "products/"
-        if searchBar.text?.trimmingCharacters(in: .whitespaces) != "" {
-            url += "?sq="+searchBar.text!.trimmingCharacters(in: .whitespaces)
+        var url = "products/?"
+        var params = [String:Any]()
+        if let search = searchBar.text?.trimmingCharacters(in: .whitespaces) {
+//            url += "sq="+searchBar.text!.trimmingCharacters(in: .whitespaces)
+            params["sq"] = search
+        }
+        if categoryID != nil {
+            params["cat"] = categoryID!
+        }
+        if sortBy != nil {
+            let sort = sortItems[sortBy!]
+            if sort == "Price-High to Low" {
+                params["sortT"] = "p"
+                params["sortV"] = "desc"
+            }
+            else if sort == "Price-Low to High" {
+                params["sortT"] = "p"
+                params["sortV"] = "asc"
+            }
+            else  {
+//                Recent First
+                params["sortT"] = "dt"
+                params["sortV"] = "desc"
+            }
+        }
+        if minPrice != nil {
+            params["pMin"] = minPrice!
+        }
+        if maxPrice != nil {
+            params["pMax"] = maxPrice!
         }
         
-        RestApiManager.sharedInstance.makeGetRequest(vc: self, url: url, params: nil, successCompletionHandler: { (data) in
+//        for (key, value) in params {
+//            //params
+//            if let temp = value as? String {
+//                url += "sq="+searchBar.text!.trimmingCharacters(in: .whitespaces)
+//                multiPart.append(temp.data(using: .utf8)!, withName: key)
+//            }
+//            if let temp = value as? Int {
+//                multiPart.append("\(temp)".data(using: .utf8)!, withName: key)
+//            }
+//        }
+//        
+        
+        
+        
+        
+//        req.query.sq, req.query.cat, req.query.pMin, req.query.pMax, req.query.sortT, req.query.sortV
+        RestApiManager.sharedInstance.makeGetRequest(vc: nil, url: url, params: params, successCompletionHandler: { (data) in
             
             guard let data = data as? [String: Any] else { return }
             if (data["status"] as! String == "Success") {
@@ -117,6 +161,13 @@ extension ProductListingViewController : UITableViewDelegate, UITableViewDataSou
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if products.count == 0 {
+            self.productTable.backgroundView = noProductView
+        }
+        else {
+            self.productTable.backgroundView = nil
+        }
+        
         return products.count
     }
     

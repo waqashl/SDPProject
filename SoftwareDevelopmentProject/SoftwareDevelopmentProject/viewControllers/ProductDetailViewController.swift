@@ -91,9 +91,11 @@ class ProductDetailViewController: BaseViewController {
         
         if product.ownerID! == Globals.sharedInstance.user!.id! {
             self.markAsSoldBtn.isHidden = false
+            self.messageBtn.isHidden = true
         }
         else {
             self.markAsSoldBtn.isHidden = true
+            self.messageBtn.isHidden = false
         }
         
         

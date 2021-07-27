@@ -24,19 +24,19 @@ class RestApiManager {
         {
             vc!.showLoading()
         }
-        let apiEndpoint = URL(string: baseURL + url)!
-        
+//        let apiEndpoint = URL(string: baseURL + url)!
+        let apiEndpoint = URL(string: baseURL + url.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed)!)!
+
         var headers = HTTPHeaders()
         
         if(Globals.sharedInstance.userToken != nil){
             headers = [.authorization(bearerToken: Globals.sharedInstance.userToken!)]
         }
         
-        AF.request(apiEndpoint, method: .get, parameters: params, encoding: JSONEncoding.default, headers: headers,
+        AF.request(apiEndpoint, method: .get, parameters: params, encoding: URLEncoding.default, headers: headers,
                    interceptor: nil).responseJSON { (response) in
                     
-                    if vc != nil
-                    {
+                    if vc != nil {
                         vc!.hideLoading()
                     }
                     

@@ -13,11 +13,28 @@ class SideMenuViewController: UIViewController {
     @IBOutlet weak var menuTableView: UITableView!
     @IBOutlet weak var userNameLabel: UILabel!
     
-    let menu = ["Home","Profile","Policy","Logout"]
-    let images = ["home","userIcon","comment","logout"]
+    var menu = ["Profile","Policy","Logout"]
+    var images = ["userIcon","comment","logout"]
+        
+//    let userMenuItems = ["Profile","Policy","Logout"]
+//    let userMenuimages = ["userIcon","comment","logout"]
+//
+//    let adminMenuItems = ["Profile","Policy","Logout"]
+//    let adminMenuimages = ["userIcon","comment","logout"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        if Globals.sharedInstance.user.id! == 1 {
+//            menu = userMenuItems
+//            images = userMenuImages
+//        }
+//        else {
+//            menu = adminMenuItems
+//            images = adminMenuimages
+//        }
+        
+        menuTableView.reloadData()
 
         self.userNameLabel.text = Globals.sharedInstance.user!.name!
         // Do any additional setup after loading the view.
