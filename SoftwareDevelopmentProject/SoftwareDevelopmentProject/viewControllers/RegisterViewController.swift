@@ -43,6 +43,11 @@ class RegisterViewController: BaseViewController {
     }
     
     
+    @IBAction func crossBtnAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     
     func setUpDatePicker() {
         let toolBar = UIToolbar()

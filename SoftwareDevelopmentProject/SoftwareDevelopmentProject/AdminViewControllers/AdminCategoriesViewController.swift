@@ -68,7 +68,7 @@ class AdminCategoriesViewController: BaseViewController {
         vc.delegate = self
         vc.indexPath = indexPath
         
-        vc.title = "Delete"
+        vc.alertTitle = "Delete"
         vc.message = "Are you sure you want to delete this category?"
         
         let popup = PopupDialog(viewController: vc, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)

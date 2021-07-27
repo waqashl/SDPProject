@@ -24,6 +24,9 @@ class ConfirmationAlertViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        titleLabel.text = alertTitle ?? ""
+        messageLabel.text = message ?? ""
 
     }
     
