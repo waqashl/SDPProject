@@ -40,7 +40,7 @@ class AdminUserDetailsViewController: BaseViewController {
 
         RestApiManager.sharedInstance.makePostRequest(vc: self, url: "user/update/status", params: param, successCompletionHandler: { (data) in
             
-            self.showErrorAlert(title: "Success", message: "User Blocked")
+            self.showErrorAlert(title: "Success", message: "User Blocked", delegate: nil)
 
         }) { (err) in
             print(err)
@@ -52,7 +52,7 @@ class AdminUserDetailsViewController: BaseViewController {
 
         RestApiManager.sharedInstance.makePostRequest(vc: self, url: "user/update/status", params: param, successCompletionHandler: { (data) in
             
-            self.showErrorAlert(title: "Success", message: "User Un-Blocked")
+            self.showErrorAlert(title: "Success", message: "User Un-Blocked", delegate: nil)
 
         }) { (err) in
             print(err)

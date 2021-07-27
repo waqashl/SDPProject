@@ -158,7 +158,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.productPrice.text = "€ \(products[indexPath.item].price!)"
         cell.productTitle.text = products[indexPath.item].title!
         if products[indexPath.row].thumbnailImage != nil {
-            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+products[indexPath.row].thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
+            cell.productImage.sd_setImage(with: URL(string: products[indexPath.row].getThumbnailURL()), placeholderImage: UIImage(named: "placeholder"))
         }
         else {
             cell.productImage.image = UIImage.init(named: "placeholder")

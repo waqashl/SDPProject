@@ -24,6 +24,12 @@ class Product {
     var status: Int?
     var location: String?
     
+    
+    func getThumbnailURL() -> String {
+        let url = RestApiManager.sharedInstance.baseURL+self.thumbnailImage!.replacingOccurrences(of: " ", with: "%20")
+        return url
+    }
+    
     init(){
     }
     
@@ -37,6 +43,11 @@ class ProductImage {
     var image: String?
     
     init(){
+    }
+    
+    func getImageURL() -> String {
+        let url = RestApiManager.sharedInstance.baseURL+self.image!.replacingOccurrences(of: " ", with: "%20")
+        return url
     }
     
 }

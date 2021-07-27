@@ -76,7 +76,7 @@ class RegisterViewController: BaseViewController {
         guard let dob = userDOB?.text?.trimmingCharacters(in: .whitespaces) else { return }
 
         if (name == "" || email == "" || password == "" || address == "" || confirmPassword == "" || dob == "") {
-            self.showErrorAlert(title: "Error", message: "All fields are required")
+            self.showErrorAlert(title: "Error", message: "All fields are required", delegate: nil)
         }
         else if (password == confirmPassword) {
         
@@ -91,10 +91,10 @@ class RegisterViewController: BaseViewController {
                 if (data["status"] as! String == "Failed") {
                     let title = data["status"] as! String
                     let message = data["message"] as? String ?? ""
-                    self.showErrorAlert(title: title, message: message)
+                    self.showErrorAlert(title: title, message: message, delegate: nil)
                 }
                 else {
-                    self.navigationController?.popViewController(animated: true)
+                    self.showErrorAlert(title: "Success", message: "User successfully registered", delegate: self)
                 }
                 
                 
@@ -103,7 +103,7 @@ class RegisterViewController: BaseViewController {
             }
         }
         else {
-            self.showErrorAlert(title: "Error", message: "Password and Confrim Password must be same.")
+            self.showErrorAlert(title: "Error", message: "Password and Confrim Password must be same.", delegate: nil)
         }
         
     }
@@ -113,4 +113,10 @@ class RegisterViewController: BaseViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
 
+}
+
+extension RegisterViewController: ErrorAlertDelegates {
+    func okPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

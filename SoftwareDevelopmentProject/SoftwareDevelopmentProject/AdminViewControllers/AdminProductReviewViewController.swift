@@ -143,7 +143,7 @@ class AdminProductReviewViewController: BaseViewController {
 
         RestApiManager.sharedInstance.makePostRequest(vc: self, url: "products/update/status", params: param, successCompletionHandler: { (data) in
             
-            self.showErrorAlert(title: "Success", message: "Product Approved")
+            self.showErrorAlert(title: "Success", message: "Product Approved", delegate: nil)
             self.getData()
 
         }) { (err) in
@@ -159,7 +159,7 @@ class AdminProductReviewViewController: BaseViewController {
         
         RestApiManager.sharedInstance.makePostRequest(vc: self, url: "products/update/status", params: param, successCompletionHandler: { (data) in
             
-            self.showErrorAlert(title: "Success", message: "Product Rejected")
+            self.showErrorAlert(title: "Success", message: "Product Rejected", delegate: nil)
 
             self.getData()
             
@@ -187,7 +187,7 @@ extension AdminProductReviewViewController: UICollectionViewDelegate, UICollecti
             cell.bannerImage.image = UIImage.init(named: "placeholder")
         }
         else {
-            cell.bannerImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+product.images[indexPath.item].image!.replacingOccurrences(of: " ", with: "%20")), placeholderImage: UIImage(named: "placeholder"))
+            cell.bannerImage.sd_setImage(with: URL(string: product.images[indexPath.item].getImageURL()), placeholderImage: UIImage(named: "placeholder"))
         }
         
         return cell

@@ -18,8 +18,8 @@ class LoginViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userEmail.text = "abc@abc.com"
-        userPassword?.text = "ppp"
+        userEmail.text = "huzaifa@gmail.com"
+        userPassword?.text = "123456"
 
         // Do any additional setup after loading the view.
     }
@@ -40,6 +40,11 @@ class LoginViewController: BaseViewController {
             return
         }
         
+        if email == "" || password == "" {
+            self.showErrorAlert(title: "Error", message: "All fields are required.", delegate: nil)
+            return
+        }
+        
         let params = ["email": email, "password" : password]
         
         RestApiManager.sharedInstance.makePostRequest(vc: self, url: "user/login", params: params, successCompletionHandler: { (data) in
@@ -49,7 +54,7 @@ class LoginViewController: BaseViewController {
             if (data["status"] as! String == "Failed") {
                 let title = data["status"] as! String
                 let message = data["message"] as? String ?? ""
-                self.showErrorAlert(title: title, message: message)
+                self.showErrorAlert(title: title, message: message, delegate: nil)
             }
             else {
                 let userData = data["user"] as! [String:Any]
@@ -81,7 +86,7 @@ class LoginViewController: BaseViewController {
                 }
                 else {
                     //Show popup that user is blocked
-                    self.showErrorAlert(title: "Error", message: "User is Blocked")
+                    self.showErrorAlert(title: "Error", message: "User is Blocked", delegate: nil)
                 }
             }
 //            user.name = data["name"] as? String ?? "";

@@ -13,12 +13,13 @@ import PopupDialog
 class BaseViewController: UIViewController {
     
     
-    func showErrorAlert(title: String, message: String) {
+    func showErrorAlert(title: String, message: String, delegate: ErrorAlertDelegates?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "alertViewController") as AlertViewController
         
         vc.alertTitle = title
         vc.message = message
+        vc.delegate = delegate
         
         let popup = PopupDialog(viewController: vc, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
 
@@ -54,4 +55,15 @@ class BaseViewController: UIViewController {
     
 }
 
+
+protocol ErrorAlertDelegates {
+    // Define expected delegate functions
+    func okPressed()
+}
+
+protocol ConfirmationAlertDelegates {
+    // Define expected delegate functions
+    func confirmPressed(indexPath: IndexPath)
+    func cancelPressed()
+}
 

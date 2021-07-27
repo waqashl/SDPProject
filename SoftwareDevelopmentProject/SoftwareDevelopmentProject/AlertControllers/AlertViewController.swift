@@ -17,6 +17,7 @@ class AlertViewController: UIViewController {
     var popUp: PopupDialog?
     var alertTitle: String?
     var message: String?
+    var delegate: ErrorAlertDelegates?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,9 @@ class AlertViewController: UIViewController {
     
     
     @IBAction func okBtnAction(_ sender: Any) {
+        if delegate != nil {
+            delegate!.okPressed()
+        }
         popUp!.dismiss()
     }
     

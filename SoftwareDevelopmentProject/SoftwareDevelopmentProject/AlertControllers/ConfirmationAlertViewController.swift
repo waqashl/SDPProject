@@ -19,16 +19,25 @@ class ConfirmationAlertViewController: UIViewController {
     var alertTitle: String?
     var message: String?
     
+    var indexPath: IndexPath?
+    var delegate: ConfirmationAlertDelegates?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
     
     @IBAction func okBtnAction(_ sender: Any) {
+        if delegate != nil {
+            delegate!.confirmPressed(indexPath: indexPath!)
+        }
         popUp!.dismiss()
     }
     
     @IBAction func cancelBtnAction(_ sender: Any) {
+        if delegate != nil {
+            delegate!.cancelPressed()
+        }
         popUp!.dismiss()
     }
 

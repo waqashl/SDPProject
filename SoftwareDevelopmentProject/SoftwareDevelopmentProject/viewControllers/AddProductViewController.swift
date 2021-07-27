@@ -83,10 +83,10 @@ class AddProductViewController: BaseViewController {
         guard let location = location.text?.trimmingCharacters(in: .whitespaces) else { return }
         
         if (productTitle == "" || desc == "" || price == "" || location == "" || selectedCategoryID == nil) {
-            self.showErrorAlert(title: "Error", message: "All fields are required")
+            self.showErrorAlert(title: "Error", message: "All fields are required",delegate: nil)
         }
         else if images.count == 0 {
-            self.showErrorAlert(title: "Error", message: "Images are required")
+            self.showErrorAlert(title: "Error", message: "Images are required", delegate: nil)
         }
         else {
             //upload product
@@ -106,12 +106,11 @@ class AddProductViewController: BaseViewController {
                 if (data["status"] as! String == "Failed") {
                     let title = data["status"] as! String
                     let message = data["message"] as? String ?? ""
-                    self.showErrorAlert(title: title, message: message)
+                    self.showErrorAlert(title: title, message: message, delegate: nil)
                 }
                 else {
                     
-                    self.showErrorAlert(title: "Success", message: "Product Added.")
-                    self.navigationController?.popViewController(animated: true)
+                    self.showErrorAlert(title: "Success", message: "Product Added.", delegate: self)
                 }
                 
             }) { (err) in
@@ -192,6 +191,13 @@ extension AddProductViewController: UIPickerViewDelegate, UIPickerViewDataSource
         
         selectedCategoryID = Globals.sharedInstance.categories[row].id!
         self.category.text = Globals.sharedInstance.categories[row].name!
+    }
+}
+
+extension AddProductViewController : ErrorAlertDelegates {
+    
+    func okPressed() {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

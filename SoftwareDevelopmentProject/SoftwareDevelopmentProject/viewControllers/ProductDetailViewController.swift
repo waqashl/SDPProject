@@ -60,6 +60,7 @@ class ProductDetailViewController: BaseViewController {
                     self.product.ownerName = productData["ownerName"] as? String ?? ""
                     self.product.location = productData["location"] as? String ?? ""
                     self.product.ownerID = productData["owner"] as? Int ?? 0
+                    self.product.status = productData["status"] as? Int ?? 0
                 }
                 
                 for i in images {
@@ -89,12 +90,17 @@ class ProductDetailViewController: BaseViewController {
         productCategory.text = Globals.sharedInstance.getCategoryName(id: product.categoryID!)
         productLocation.text = product.location!
         
-        if product.ownerID! == Globals.sharedInstance.user!.id! {
+        if product.ownerID! == Globals.sharedInstance.user!.id! && product.status != 3 {
             self.markAsSoldBtn.isHidden = false
-            self.messageBtn.isHidden = true
         }
         else {
             self.markAsSoldBtn.isHidden = true
+        }
+        
+        if product.ownerID! == Globals.sharedInstance.user!.id! {
+            self.messageBtn.isHidden = true
+        }
+        else {
             self.messageBtn.isHidden = false
         }
         
@@ -109,9 +115,7 @@ class ProductDetailViewController: BaseViewController {
         
         RestApiManager.sharedInstance.makePostRequest(vc: self, url: "products/update/status", params: param, successCompletionHandler: { (data) in
             
-            self.showErrorAlert(title: "Success", message: "Product marked as sold.")
-
-            self.getData()
+            self.showErrorAlert(title: "Success", message: "Product marked as sold.", delegate: self)
             
         }) { (err) in
             print(err)
@@ -139,7 +143,7 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
             cell.bannerImage.image = UIImage.init(named: "placeholder")
         }
         else {
-            cell.bannerImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+product.images[indexPath.item].image!.replacingOccurrences(of: " ", with: "%20")), placeholderImage: UIImage(named: "placeholder"))
+            cell.bannerImage.sd_setImage(with: URL(string: product.images[indexPath.item].getImageURL()), placeholderImage: UIImage(named: "placeholder"))
         }
         
         return cell
@@ -155,4 +159,11 @@ extension ProductDetailViewController: UICollectionViewDelegate, UICollectionVie
         self.pageController.currentPage = indexPath.row
     }
     
+}
+
+extension ProductDetailViewController: ErrorAlertDelegates {
+    
+    func okPressed() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

@@ -124,7 +124,7 @@ extension AdminProductsViewController : UITableViewDelegate, UITableViewDataSour
         }
         
         if product.thumbnailImage != nil {
-            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+product.thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
+            cell.productImage.sd_setImage(with: URL(string: products[indexPath.row].getThumbnailURL()), placeholderImage: UIImage(named: "placeholder"))
         }
         else {
             cell.productImage.image = UIImage.init(named: "placeholder")

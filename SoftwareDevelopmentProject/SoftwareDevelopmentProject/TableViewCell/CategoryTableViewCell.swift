@@ -12,6 +12,7 @@ class CategoryTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var categoryName: UILabel!
+    @IBOutlet weak var categoryStatus: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

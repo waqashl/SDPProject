@@ -12,7 +12,8 @@ import PopupDialog
 class AddNewCategoryViewController: BaseViewController {
 
     var popUp: PopupDialog?
-
+    var delegate: ErrorAlertDelegates?
+    
     @IBOutlet weak var categoryTextField: UITextField!
     
     
@@ -29,7 +30,7 @@ class AddNewCategoryViewController: BaseViewController {
         }
         
         if name == "" {
-            self.showErrorAlert(title: "Error", message: "Category Name Required.")
+            self.showErrorAlert(title: "Error", message: "Category Name Required.", delegate: nil)
         }
         else {
             //add new category
@@ -38,6 +39,9 @@ class AddNewCategoryViewController: BaseViewController {
             
             RestApiManager.sharedInstance.makePostRequest(vc: self, url: url, params: param, successCompletionHandler: { (data) in
                 
+                if self.delegate != nil {
+                    self.delegate!.okPressed()
+                }
                 self.popUp?.dismiss()
                 
             }) { (err) in

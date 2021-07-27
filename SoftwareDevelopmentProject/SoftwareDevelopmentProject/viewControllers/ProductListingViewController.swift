@@ -32,13 +32,13 @@ class ProductListingViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         selectedProductID = nil
-        
+        getData()
+
 //        if applyFilter {
 //            applyFilter = false
 //            getData()
@@ -182,7 +182,7 @@ extension ProductListingViewController : UITableViewDelegate, UITableViewDataSou
         cell.uploadedBy.text = product.ownerName!
         
         if product.thumbnailImage != nil {
-            cell.productImage.sd_setImage(with: URL(string: RestApiManager.sharedInstance.baseURL+product.thumbnailImage!), placeholderImage: UIImage(named: "placeholder"))
+            cell.productImage.sd_setImage(with: URL(string: products[indexPath.row].getThumbnailURL()), placeholderImage: UIImage(named: "placeholder"))
         }
         else {
             cell.productImage.image = UIImage.init(named: "placeholder")
