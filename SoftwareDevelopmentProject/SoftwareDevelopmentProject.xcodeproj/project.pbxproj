@@ -71,7 +71,6 @@
 		6B6A3774268BAEB600F16192 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6B6A3776268BAEBA00F16192 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B6A3779268BAEBA00F16192 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6B6A377B268BAEBA00F16192 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6B74A77426AC2FE500840F53 /* RestApiManganer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestApiManganer.swift; sourceTree = "<group>"; };
 		6B74A77626AC34FD00840F53 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		6B74A77826AC35DB00840F53 /* LoadingPartialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPartialViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +111,7 @@
 		6BF3CEE62696509C00D08FF5 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		6BF3CEE8269650EB00D08FF5 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		CE1DACF132A09F5314E8C472 /* Pods-SoftwareDevelopmentProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoftwareDevelopmentProject.release.xcconfig"; path = "Target Support Files/Pods-SoftwareDevelopmentProject/Pods-SoftwareDevelopmentProject.release.xcconfig"; sourceTree = "<group>"; };
+		EAB73E8C26B00C4000E98918 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,7 +168,7 @@
 				6B6A3773268BAEB600F16192 /* Main.storyboard */,
 				6B6A3776268BAEBA00F16192 /* Assets.xcassets */,
 				6B6A3778268BAEBA00F16192 /* LaunchScreen.storyboard */,
-				6B6A377B268BAEBA00F16192 /* Info.plist */,
+				EAB73E8C26B00C4000E98918 /* Info.plist */,
 				6BE00D332692287800C9B85A /* RoundedButton.swift */,
 			);
 			path = SoftwareDevelopmentProject;
