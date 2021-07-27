@@ -17,6 +17,7 @@ class HomeViewController: BaseViewController {
     var categoryProducts = [Int: [Product]]()
     
     var selectedProductID: Int?
+    var selectedCategoryID: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,7 @@ class HomeViewController: BaseViewController {
         if (data["status"] as! String == "Success") {
             
             let product = data["products"] as! [Any]
+            self.products.removeAll()
             
             for p in product {
                 let productData = p as! [String:Any]
@@ -65,6 +67,7 @@ class HomeViewController: BaseViewController {
     
     
     func categorizeProduct() {
+        self.categoryProducts.removeAll()
         for p in products {
             if categoryProducts.keys.contains(p.categoryID!) {
                 categoryProducts[p.categoryID!]!.append(p)
@@ -84,6 +87,11 @@ class HomeViewController: BaseViewController {
             let vc = segue.destination as! ProductDetailViewController
             vc.id = selectedProductID
         }
+        if segue.identifier == "productlistingSegue" {
+            let vc = segue.destination as! ProductListingViewController
+            vc.categoryID = selectedCategoryID!
+        }
+        
     }
     
     
@@ -120,7 +128,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
             
             cell.products = p!
             
-            cell.viewAllBtn.tag = indexPath.row
+            cell.viewAllBtn.tag = keys[indexPath.row]
             cell.viewAllBtn.addTarget(self, action: #selector(viewAllBtnAction(_:)), for: .touchUpInside)
             
             return cell
@@ -134,7 +142,8 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     
     @objc func viewAllBtnAction(_ sender: UIButton) {
 //        productlistingSegue
-        performSegue(withIdentifier: "productlistingSegue", sender: nil)
+        selectedCategoryID = sender.tag
+        performSegue(withIdentifier: "productlistingSegue", sender: sender)
     }
     
 }

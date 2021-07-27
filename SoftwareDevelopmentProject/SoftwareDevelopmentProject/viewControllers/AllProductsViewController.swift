@@ -1,8 +1,8 @@
 //
-//  ProductListingViewController.swift
+//  AllProductsViewController.swift
 //  SoftwareDevelopmentProject
 //
-//  Created by Huzaifa on 7/4/21.
+//  Created by Huzaifa on 7/27/21.
 //  Copyright © 2021 Technolage. All rights reserved.
 //
 
@@ -10,8 +10,7 @@ import UIKit
 import PopupDialog
 import SDWebImage
 
-class ProductListingViewController: BaseViewController {
-    
+class AllProductsViewController: UIViewController {
     
     @IBOutlet weak var productTable: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -28,7 +27,6 @@ class ProductListingViewController: BaseViewController {
     var minPrice: Int?
     var maxPrice: Int?
     
-//    var applyFilter = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +36,6 @@ class ProductListingViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         selectedProductID = nil
         getData()
-
     }
     
     @IBAction func filterBtnAction(_ sender: Any) {
@@ -46,12 +43,10 @@ class ProductListingViewController: BaseViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "filterViewController") as FilterViewController
         vc.delegate = self
-        
         vc.selectedCategoryID = self.categoryID
         vc.minPrice = self.minPrice
         vc.maxPrice = self.maxPrice
         vc.sortBy = self.sortBy
-        
         
         let popup = PopupDialog(viewController: vc, buttonAlignment: .horizontal, transitionStyle: .bounceUp, tapGestureDismissal: true)
         
@@ -64,6 +59,7 @@ class ProductListingViewController: BaseViewController {
         var url = "products/?"
         var params = [String:Any]()
         if let search = searchBar.text?.trimmingCharacters(in: .whitespaces) {
+            //            url += "sq="+searchBar.text!.trimmingCharacters(in: .whitespaces)
             params["sq"] = search
         }
         if categoryID != nil {
@@ -80,7 +76,7 @@ class ProductListingViewController: BaseViewController {
                 params["sortV"] = "asc"
             }
             else  {
-//                Recent First
+                //                Recent First
                 params["sortT"] = "dt"
                 params["sortV"] = "desc"
             }
@@ -92,6 +88,22 @@ class ProductListingViewController: BaseViewController {
             params["pMax"] = maxPrice!
         }
         
+        //        for (key, value) in params {
+        //            //params
+        //            if let temp = value as? String {
+        //                url += "sq="+searchBar.text!.trimmingCharacters(in: .whitespaces)
+        //                multiPart.append(temp.data(using: .utf8)!, withName: key)
+        //            }
+        //            if let temp = value as? Int {
+        //                multiPart.append("\(temp)".data(using: .utf8)!, withName: key)
+        //            }
+        //        }
+        //
+        
+        
+        
+        
+        //        req.query.sq, req.query.cat, req.query.pMin, req.query.pMax, req.query.sortT, req.query.sortV
         RestApiManager.sharedInstance.makeGetRequest(vc: nil, url: url, params: params, successCompletionHandler: { (data) in
             
             guard let data = data as? [String: Any] else { return }
@@ -142,7 +154,7 @@ class ProductListingViewController: BaseViewController {
 }
 
 
-extension ProductListingViewController : UITableViewDelegate, UITableViewDataSource {
+extension AllProductsViewController : UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,7 +206,7 @@ extension ProductListingViewController : UITableViewDelegate, UITableViewDataSou
 
 
 
-extension ProductListingViewController : UISearchBarDelegate {
+extension AllProductsViewController : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         print("cancel")
@@ -209,7 +221,7 @@ extension ProductListingViewController : UISearchBarDelegate {
 }
 
 
-extension ProductListingViewController: FilterDelegates {
+extension AllProductsViewController: FilterDelegates {
     
     func applyFilter(minPrice: Int?, maxPrice: Int?, categoryID: Int?, sortById: Int?) {
         self.minPrice = minPrice
@@ -224,6 +236,3 @@ extension ProductListingViewController: FilterDelegates {
         
     }
 }
-
-
-

@@ -67,3 +67,8 @@ protocol ConfirmationAlertDelegates {
     func cancelPressed()
 }
 
+protocol FilterDelegates {
+    func applyFilter(minPrice: Int?, maxPrice: Int?, categoryID: Int?, sortById:Int?)
+    func cancelFilter()
+}
+

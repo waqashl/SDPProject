@@ -17,12 +17,13 @@ class FilterViewController: UIViewController {
     @IBOutlet weak var priceRange: RangeSeekSlider!
     
     var popUp: PopupDialog?
-    var hostController : ProductListingViewController?
     
     var categoryID: Int?
     var sortBy: Int?
     var minPrice: Int?
     var maxPrice: Int?
+    
+    var delegate: FilterDelegates?
     
     
     let categoryPicker = UIPickerView()
@@ -89,13 +90,19 @@ class FilterViewController: UIViewController {
     
     
     @IBAction func cancelBtnAction(_ sender: Any) {
+        if delegate != nil {
+            delegate!.cancelFilter()
+        }
         popUp!.dismiss()
     }
     
     @IBAction func applyBtnAction(_ sender: Any) {
-        self.hostController!.minPrice = Int(priceRange.selectedMinValue)
-        self.hostController!.maxPrice = Int(priceRange.selectedMaxValue)
-        self.hostController!.getData()
+        
+        if delegate != nil {
+            delegate!.applyFilter(minPrice: Int(priceRange.selectedMinValue),
+                                  maxPrice: Int(priceRange.selectedMaxValue),
+                                  categoryID: selectedCategoryID, sortById: sortBy)
+        }
         popUp!.dismiss()
     }
     
@@ -121,11 +128,10 @@ extension FilterViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         if pickerView.tag == 1 {
             selectedCategoryID = Globals.sharedInstance.categories[row].id!
-            self.hostController!.categoryID = selectedCategoryID
             categoryTextField.text = Globals.sharedInstance.categories[row].name!
         }
         else {
-            self.hostController!.sortBy = row
+            self.sortBy = row
             sortByTextField.text = sortItems[row]
         }
         
