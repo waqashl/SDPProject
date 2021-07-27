@@ -15,6 +15,7 @@ class HomeViewController: BaseViewController {
     
     var products = [Product]()
     var categoryProducts = [Int: [Product]]()
+    var keys = [Int]()
     
     var selectedProductID: Int?
     var selectedCategoryID: Int?
@@ -76,7 +77,7 @@ class HomeViewController: BaseViewController {
                 categoryProducts[p.categoryID!] = [p]
             }
         }
-        
+        keys = Array(categoryProducts.keys)
         self.tableView!.reloadData()
     }
     
@@ -106,7 +107,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : categoryProducts.keys.count
+        return section == 0 ? 1 : keys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -118,7 +119,6 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "homeProductsCell") as! HomeProductsTableViewCell
-            let keys = Array(categoryProducts.keys)
             let p = categoryProducts[keys[indexPath.row]]
             
             cell.categoryName.text = Globals.sharedInstance.getCategoryName(id: keys[indexPath.row])
@@ -151,17 +151,13 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let keys = Array(categoryProducts.keys)
         let products = categoryProducts[keys[collectionView.tag]]!
-
         return products.count > 5 ? 5 : products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "productCollectionCell", for: indexPath) as! ProductCollectionViewCell
-        
-        let keys = Array(categoryProducts.keys)
         let products = categoryProducts[keys[collectionView.tag]]!
         
         cell.productPrice.text = "€ \(products[indexPath.item].price!)"
@@ -178,7 +174,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let keys = Array(categoryProducts.keys)
         let products = categoryProducts[keys[collectionView.tag]]!
         selectedProductID = products[indexPath.item].id!
         performSegue(withIdentifier: "productDetailSegue", sender: collectionView)
