@@ -17,9 +17,6 @@ class LoginViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        userEmail.text = "huzaifa@gmail.com"
-        userPassword?.text = "123456"
 
         // Do any additional setup after loading the view.
     }
