@@ -22,6 +22,7 @@ class RegisterViewController: BaseViewController {
     var dateFormatter = DateFormatter()
 
     
+    /// <#Description#>
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -34,11 +35,11 @@ class RegisterViewController: BaseViewController {
         
         
         //Auto fill data
-        userName.text = "Sumair"
-        userEmail.text = "sumair@fulda.com"
-        userAddress.text = "Campus Living Fulda"
-        userPassword.text = "123456"
-        confirmPassword.text = "123456"
+//        userName.text = "Sumair"
+//        userEmail.text = "sumair@fulda.com"
+//        userAddress.text = "Campus Living Fulda"
+//        userPassword.text = "123456"
+//        confirmPassword.text = "123456"
         
     }
     

@@ -99,7 +99,7 @@ class AddProductViewController: BaseViewController {
             }
             
             
-            RestApiManager.sharedInstance.uploadMultipartData(vc: self, images: data, to: "products/", params: params, successCompletionHandler: { (data) in
+            RestApiManager.sharedInstance.uploadMultipartData(vc: nil, images: data, to: "products/", params: params, successCompletionHandler: { (data) in
                 
                 guard let data = data as? [String: Any] else { return }
                 
