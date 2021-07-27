@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "cameraIcon.jpeg",
+      "filename" : "cameraIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cameraIcon-1.jpeg",
+      "filename" : "cameraIcon-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cameraIcon-2.jpeg",
+      "filename" : "cameraIcon-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
